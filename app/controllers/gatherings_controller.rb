@@ -1,5 +1,4 @@
 class GatheringsController < ApplicationController
-  skip_before_action :authenticate
 
   # Index
   def index
@@ -15,7 +14,8 @@ class GatheringsController < ApplicationController
 
   # Create
   def create
-    gathering = Gathering.new(gath_params)
+    user = current_user
+    gathering = user.gatherings.new(gath_params)
 
     if gathering.save
       render json: gathering
