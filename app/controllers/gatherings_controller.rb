@@ -45,7 +45,13 @@ class GatheringsController < ApplicationController
   # Destroy
   def destroy
     gathering = Gathering.find(params[:id])
-    gathering.destroy
+    user = current_user
+
+    if user.id == gathering.user_id
+      gathering.destroy
+    else
+      head :unauthorized
+    end
   end
 
   # Strong Params
