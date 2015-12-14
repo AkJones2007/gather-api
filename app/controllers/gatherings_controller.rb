@@ -26,12 +26,19 @@ class GatheringsController < ApplicationController
 
   # Update
   def update
+    user = current_user
     gathering = Gathering.find(params[:id])
 
-    if gathering.update(gath_params)
-      render json: gathering
+    if user.id == gathering.user_id
+
+      if gathering.update(gath_params)
+        render json: gathering
+      else
+        render json: gathering.errors, status: :unprocessable_entity
+      end
+
     else
-      render json: gathering.errors, status: :unprocessable_entity
+      head :unauthorized
     end
   end
 
