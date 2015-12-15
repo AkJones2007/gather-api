@@ -29,4 +29,12 @@ Rails.application.routes.draw do
   # Gatherings
   resources :gatherings, except: [:new, :edit]
 
+  # Invitations
+  get '/gatherings/:id/invites' => 'invitations#gathering_invites'
+  get '/profile/invitations' => 'invitations#current_user_invitations'
+  get '/invitations/:id' => 'invitations#show'
+  post 'gatherings/:id/invites' => 'invitations#create'
+  patch '/invitations/:id' => 'invitations#update'
+  delete '/invitations/:id' => 'invitations#destroy'
+
 end
