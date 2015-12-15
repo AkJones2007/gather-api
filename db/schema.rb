@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151215181114) do
+ActiveRecord::Schema.define(version: 20151215203413) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,17 @@ ActiveRecord::Schema.define(version: 20151215181114) do
   end
 
   add_index "gatherings", ["user_id"], name: "index_gatherings_on_user_id", using: :btree
+
+  create_table "invitations", force: :cascade do |t|
+    t.string   "status"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "gathering_id"
+    t.integer  "profile_id"
+  end
+
+  add_index "invitations", ["gathering_id"], name: "index_invitations_on_gathering_id", using: :btree
+  add_index "invitations", ["profile_id"], name: "index_invitations_on_profile_id", using: :btree
 
   create_table "profiles", force: :cascade do |t|
     t.string   "fname",      null: false
@@ -66,6 +77,8 @@ ActiveRecord::Schema.define(version: 20151215181114) do
   add_foreign_key "friends", "profiles"
   add_foreign_key "friends", "users"
   add_foreign_key "gatherings", "users"
+  add_foreign_key "invitations", "gatherings"
+  add_foreign_key "invitations", "profiles"
   add_foreign_key "profiles", "users"
   add_foreign_key "users", "profiles"
 end
