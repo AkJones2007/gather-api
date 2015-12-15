@@ -2,7 +2,13 @@ class FriendsController < ApplicationController
 
   # Get Current User's Friends
   def current_user_friends
-    friends = current_user.friends
+    friends = current_user.friends.where accepted: true
+    render json: friends
+  end
+
+  # Get Current User's Pending Requests
+  def friend_requests
+    friends = current_user.friends.where accepted: false
     render json: friends
   end
 

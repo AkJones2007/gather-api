@@ -21,6 +21,7 @@ Rails.application.routes.draw do
 
   # Friends
   get '/profile/friends' => 'friends#current_user_friends'
+  get '/profile/friend-requests' => 'friends#friend_requests'
   post '/friends' => 'friends#create'
   patch '/friends/:id' => 'friends#update'
   delete '/friends/:id' => 'friends#destroy'
