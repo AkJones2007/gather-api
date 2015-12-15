@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   def index
     @users = User.all
 
-    render json: @users
+    render json: @users, each_serializer: UserSerializer, root: 'user'
   end
 
   # GET /users/1
@@ -14,7 +14,7 @@ class UsersController < ApplicationController
     if current_user == @user
       render json: @user, serializer: CurrentUserSerializer, root: 'user'
     else
-      render json: @user
+      render json: @user, serializer: UserSerializer, root: 'user'
     end
   end
 

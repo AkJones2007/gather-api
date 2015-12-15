@@ -3,13 +3,13 @@ class GatheringsController < ApplicationController
   # Index
   def index
     gatherings = Gathering.all
-    render json: gatherings
+    render json: gatherings, each_serializer: GatheringsSerializer, root: 'gatherings'
   end
 
   # Show
   def show
     gathering = Gathering.find(params[:id])
-    render json: gathering
+    render json: gathering, serializer: GatheringsSerializer, root: 'gatherings'
   end
 
   # Create
