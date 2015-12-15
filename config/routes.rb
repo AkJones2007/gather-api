@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   # View/Search Profiles
   get '/profiles' => 'profiles#index'
   get '/profiles/:id' => 'profiles#show'
+  get '/profiles/search/:query' => 'profiles#search'
 
   # Current User Profiles
   get '/profile' => 'profiles#show_current'

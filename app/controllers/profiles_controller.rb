@@ -12,6 +12,17 @@ class ProfilesController < ApplicationController
     render json: profile
   end
 
+  # Search
+  def search
+    query = params[:query]
+    profiles = Profile.all.select do |profile|
+      profile.fname == query ||
+      profile.lname == query ||
+      profile.zip_code == query
+    end
+    render json: profiles
+  end
+
   # Show Current User's Profile
   def show_current
     user = current_user
