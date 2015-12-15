@@ -2,13 +2,21 @@ class ProfilesController < ApplicationController
 
   # Index
   def index
-    profile = Profile.all
-    render json: profile
+    profiles = Profile.all
+    render json: profiles
   end
 
   # Show
   def show
-    profile = Profile.find(params[:id])
+    profile = Profile.find_by user_id: params[:id]
+    render json: profile
+  end
+
+  # Show Current User's Profile
+  def show_current
+    user = current_user
+    profile = Profile.find_by user_id: user.id
+
     render json: profile
   end
 
@@ -27,31 +35,21 @@ class ProfilesController < ApplicationController
   # Update
   def update
     user = current_user
-    profile = Profile.find(params[:id])
+    profile = Profile.find_by user_id: user.id
 
-    if user.id == profile.user_id
-
-      if profile.update(profile_params)
-        render json: profile
-      else
-        render json: profile.errors, status: :unprocessable_entity
-      end
-
+    if profile.update(profile_params)
+      render json: profile
     else
-      head :unauthorized
+      render json: profile.errors, status: :unprocessable_entity
     end
   end
 
   # Destroy
   def destroy
-    profile = Profile.find(params[:id])
     user = current_user
+    profile = Profile.find_by user_id: user.id
 
-    if user.id == profile.user_id
-      profile.destroy
-    else
-      head :unauthorized
-    end
+    profile.destroy
   end
 
   # Strong Params
