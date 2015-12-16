@@ -35,7 +35,6 @@ class ProfilesController < ApplicationController
   # Create
   def create
     profile = Profile.new(profile_params)
-    profile.user_id = current_user.id
 
     if profile.save
       render json: profile
@@ -66,7 +65,7 @@ class ProfilesController < ApplicationController
 
   # Strong Params
   def profile_params
-    params.require(:profile).permit(:fname, :lname, :zip_code)
+    params.require(:profile).permit(:fname, :lname, :zip_code, :user_id)
   end
 
   private :profile_params
