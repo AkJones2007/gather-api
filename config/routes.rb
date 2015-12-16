@@ -28,6 +28,8 @@ Rails.application.routes.draw do
 
   # Gatherings
   resources :gatherings, except: [:new, :edit]
+  get '/profile/gatherings' => 'gatherings#current_user_gatherings'
+
 
   # Invitations
   get '/gatherings/:id/invites' => 'invitations#gathering_invites'

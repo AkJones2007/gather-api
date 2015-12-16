@@ -6,6 +6,12 @@ class GatheringsController < ApplicationController
     render json: gatherings, each_serializer: GatheringsSerializer, root: 'gatherings'
   end
 
+  # Current User's Gatherings
+  def current_user_gatherings
+    gatherings = Gathering.where user_id: current_user.id
+    render json: gatherings
+  end
+
   # Show
   def show
     gathering = Gathering.find(params[:id])
