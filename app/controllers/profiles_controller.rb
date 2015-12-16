@@ -1,4 +1,5 @@
 class ProfilesController < ApplicationController
+  skip_before_action :authenticate, only: :create
 
   # Index
   def index

@@ -8,6 +8,7 @@ require "active_record/railtie"
 require "action_controller/railtie"
 require "action_mailer/railtie"
 require "action_view/railtie"
+require "rack/cors"
 # require "sprockets/railtie"
 # require "rails/test_unit/railtie"
 
@@ -33,7 +34,7 @@ module Project2Api
     config.active_record.raise_in_transactional_callbacks = true
 
     # Cross-Origin Resource Sharing
-    config.middleware.use Rack::Cors do
+    config.middleware.insert_before ActionDispatch::Static, Rack::Cors do
       allow do
         origins '*'
         resource '*',
