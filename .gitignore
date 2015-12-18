@@ -14,4 +14,4 @@
 
 # Ignore my secrets
 .env
-procfile
+Procfile
